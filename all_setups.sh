@@ -39,7 +39,7 @@ EOF
 sudo useradd -rs /bin/false prometheus
 sudo chown -R prometheus: /etc/prometheus /var/lib/prometheus
 
-# Create Prometheus Systemd Service
+# Create Prometheus Systemd Service:
 cat <<EOF | sudo tee /etc/systemd/system/prometheus.service
 [Unit]
 Description=Prometheus
@@ -63,7 +63,7 @@ EOF
 sudo systemctl daemon-reload && sudo systemctl enable prometheus
 sudo systemctl start prometheus && sudo systemctl status prometheus --no-pager
 
-# Install Grafana
+# Install Grafana:
 wget -q -O gpg.key $GRAFANA_REPO/gpg.key
 sudo rpm --import gpg.key
 cat <<EOF | sudo tee /etc/yum.repos.d/grafana.repo
@@ -82,7 +82,7 @@ sudo yum install grafana -y
 sudo systemctl enable --now grafana-server.service
 sudo systemctl status grafana-server.service --no-pager
 
-# Install Node Exporter
+# Install Node Exporter:
 wget https://github.com/prometheus/node_exporter/releases/download/v$NODE_EXPORTER_VERSION/node_exporter-$NODE_EXPORTER_VERSION.linux-amd64.tar.gz
 tar -xf node_exporter-$NODE_EXPORTER_VERSION.linux-amd64.tar.gz
 sudo mv node_exporter-$NODE_EXPORTER_VERSION.linux-amd64/node_exporter /usr/local/bin
